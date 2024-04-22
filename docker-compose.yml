@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  redis-service:
+    container_name: redis-database
+    image: 'bitnami/redis:latest'
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: API
+    expose:
+      - '8001'
+    ports:
+      - '8001:8001'
+    environment:
+      - PORT=8001
+      - REDIS_URL=redis-service
+      - REDIS_PORT=6379
+      - REDIS_EXPIRE=10
+      - MONGO_USERNAME=root
+      - MONGO_PASSWORD=example
+      - MONGO_URL=mongo:27017
+      - MONGO_DB=product
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - '27017:27017'
