@@ -13,9 +13,9 @@ services:
       dockerfile: Dockerfile
     container_name: API
     expose:
-      - '8001'
+      - '8002'
     ports:
-      - '8001:8001'
+      - '8002:8001'
     environment:
       - PORT=8001
       - REDIS_URL=redis-service
