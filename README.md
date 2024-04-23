@@ -108,13 +108,40 @@ scp roducts-pod.yaml remote_username@10.10.0.2:/remote/directory
 <!--
 scp roducts-pod.yaml ramon@1192.168.64.2:/
 -->
-In sequence need apply this file, e check pods.
+
+### Step 5: Apply spec file
+
+In sequence need apply this file, and check pods.
 
 
 ```bash
 kubectl apply -f products-pod.yaml
+```
+** [output]**
+pod/web-products created
+
+```bash
 kubectl get pods
 ```
 **[output]**
+|NAME           |READY  | STATUS |             RESTARTS  | AGE|
+| ---|            ----    | ---- |  ---------| --|
+|web-products   |0/4     |ContainerCreating |  0       |   40s |
+
+while containers are created, check the logs with:
+```bash
+kubectl logs web-products
+```
+If it takes a long time to successfully create the containers, check the logs individually to see if any errors occurred, if necessary correct and apply this file again.
+```bash
+kubectl logs web-products -c [redis-service, mongo, frontend, api]
+```
+ > erro example
+> |NAME       |    READY  |  STATUS      |       RESTARTS      |  AGE| 
+> | ----- | ------- | ------- | ------ | ------| 
+> |web-products  |   3/4     | CrashLoopBackOff  |   12 (24s ago) |   10m | 
+
+after a few seconds, you can run this same command, and will see:
+
 
 **TODO: Step-by-step run pods with k8s**

@@ -7,7 +7,7 @@ metadata:
     release : stable
 spec:
   containers:
-    - name:  redis-service:
+    - name:  redis-service
       image: bitnami/redis:latest
       ports:
         - containerPort: 6379
@@ -16,23 +16,27 @@ spec:
         - name: data
           mountPath: /data
       env:
-         ALLOW_EMPTY_PASSWORD: "yes"
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
 
     - name: mongo
-      image: mongo
+      image: mongo:4.4.6
       volumeMounts:
         - name: data
           mountPath: /data
       env:
-        MONGO_INITDB_ROOT_USERNAME: root
-        MONGO_INITDB_ROOT_PASSWORD: example
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: "root"
+        - name: MONGO_INITDB_ROOT_PASSWORD 
+          value: "example"
     - name: frontend
-    image: ramondomiingos/front-products
-    ports:
-      - containerPort: 8002
-        protocol: TCP
-    env:
-      VITE_URL_PRODUCTS: http://api:8001
+      image: ramondomiingos/front-products
+      ports:
+        - containerPort: 8002
+          protocol: TCP
+      env:
+        - name: VITE_URL_PRODUCTS
+          value: "http://api:8001"
     
     - name: api
       image: ramondomiingos/api-products
@@ -40,14 +44,22 @@ spec:
         - containerPort: 8001
           protocol: TCP
       env:
-        PORT": 8001 
-        REDIS_URL: redis-service
-        REDIS_PORT: 6379
-        REDIS_EXPIRE: 10
-        MONGO_USERNAME: root
-        MONGO_PASSWORD: example
-        MONGO_URL"mongo: 27017
-        MONGO_DB: product
+        - name: PORT
+          value: "8001"
+        - name: REDIS_URL
+          value: "redis-service"
+        - name:  REDIS_PORT
+          value: "6379"
+        - name: REDIS_EXPIRE
+          value: "10"
+        - name: MONGO_USERNAME
+          value: "root"
+        - name: MONGO_PASSWORD
+          value: "example"
+        - name: MONGO_URL
+          value: "mongo:27017"
+        - name: MONGO_DB
+          value: "product"
 
   volumes:
     - name: data
