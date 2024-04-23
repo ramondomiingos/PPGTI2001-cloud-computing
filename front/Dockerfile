@@ -1,6 +1,8 @@
 FROM refinedev/node:18 AS base
 
-FROM base as deps
+FROM base AS deps
+
+RUN apk add --no-cache libc6-compat
 
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
 
@@ -11,11 +13,7 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-FROM base as builder
-
-
-ENV NODE_ENV production
-
+FROM base AS builder
 
 COPY --from=deps /app/refine/node_modules ./node_modules
 
@@ -23,16 +21,23 @@ COPY . .
 
 RUN npm run build
 
-FROM base as runner
-
+FROM base AS runner
 
 ENV NODE_ENV production
 
+ #COPY --from=builder /app/refine/public ./public
 
-RUN npm install -g serve
+RUN mkdir .next
+RUN chown refine:nodejs .next
 
-COPY --from=builder /app/refine/dist ./
+COPY --from=builder --chown=refine:nodejs /app/refine/.next/standalone ./
+COPY --from=builder --chown=refine:nodejs /app/refine/.next/static ./.next/static
 
 USER refine
+
 EXPOSE 3000
-CMD ["serve"]
+
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+
+CMD ["node", "server.js"]

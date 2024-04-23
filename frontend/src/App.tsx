@@ -44,7 +44,7 @@ function App() {
               <Refine
                 dataProvider={{
                   default: dataProvider(confiApp.VITE_API_URL),
-                  products: dataProvider(confiApp[`VITE_API_URL`])
+                  products: dataProvider(confiApp.VITE_API_URL)
                 }}
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
