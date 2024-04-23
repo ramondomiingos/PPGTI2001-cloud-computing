@@ -148,7 +148,11 @@ kubectl logs web-products -c [redis-service, mongo, frontend, api]
 
 after a few seconds, you can run this same command, and will see:
 
+|NAME       |    READY  |  STATUS      |       RESTARTS      |  AGE| 
+ | ----- | ------- | ------- | ------ | ------| 
+| web-products |   4/4  |    Running |  0 |          22s | 
 
 
 
-**TODO: Step-by-step run pods with k8s**
+
+**TODO: add screnshot for the browser and datagrip**

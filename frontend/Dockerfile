@@ -33,5 +33,5 @@ RUN npm install -g serve
 COPY --from=builder /app/refine/dist ./
 
 USER refine
-
+EXPOSE 3000
 CMD ["serve"]

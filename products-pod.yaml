@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-products
+  labels:
+    tier: front
+    release : stable
+spec:
+  containers:
+    - name:  redis-service
+      image: bitnami/redis:latest
+      ports:
+        - containerPort: 6379
+          protocol: TCP
+      volumeMounts:
+        - name: data
+          mountPath: /data
+      env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+
+    - name: mongo
+      image: mongo:4.4.6
+      volumeMounts:
+        - name: data
+          mountPath: /data
+      env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: "root"
+        - name: MONGO_INITDB_ROOT_PASSWORD 
+          value: "example"
+    - name: frontend
+      image: ramondomiingos/front-products
+      ports:
+        - containerPort: 8002
+          protocol: TCP
+      env:
+        - name: VITE_URL_PRODUCTS
+          value: "http://api:8001"
+    
+    - name: api
+      image: ramondomiingos/api-products
+      ports:
+        - containerPort: 8001
+          protocol: TCP
+      env:
+        - name: PORT
+          value: "8001"
+        - name: REDIS_URL
+          value: "redis-service"
+        - name:  REDIS_PORT
+          value: "6379"
+        - name: REDIS_EXPIRE
+          value: "10"
+        - name: MONGO_USERNAME
+          value: "root"
+        - name: MONGO_PASSWORD
+          value: "example"
+        - name: MONGO_URL
+          value: "mongo:27017"
+        - name: MONGO_DB
+          value: "product"
+
+  volumes:
+    - name: data
+      emptyDir: {}
