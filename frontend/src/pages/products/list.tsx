@@ -16,7 +16,8 @@ export const ProductList = () => {
 
   return (
     <List>
-      <Table {...tableProps} rowKey="name">
+      <Table {...tableProps} rowKey="_id">
+          <Table.Column dataIndex="_id" title={"_id"} />
           <Table.Column dataIndex="name" title={"name"} />
           <Table.Column dataIndex="description" title={"description"} />
           <Table.Column dataIndex="qtdAvailable" title={"qtdAvailable"} />

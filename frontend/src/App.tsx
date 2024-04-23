@@ -28,8 +28,12 @@ import {
   ProductShow,
 } from "./pages/products";
 import React from "react";
+import {confiApp} from "./config";
+
+console.log(confiApp)
 
 function App() {
+
   return (
     <BrowserRouter>
      
@@ -38,20 +42,23 @@ function App() {
           <AntdApp>
             <DevtoolsProvider>
               <Refine
-                dataProvider={dataProvider("http://localhost:8002")}
+                dataProvider={{
+                  default: dataProvider(confiApp.VITE_API_URL),
+                  products: dataProvider(confiApp[`VITE_API_URL`])
+                }}
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
                 resources={[
-                 
                   {
                     name: "products",
+                    meta: {
+                      dataProviderName: "products",
+                      canDelete: true,
+                    },
                     list: "/products",
                     create: "/products/create",
                     edit: "/products/edit/:id",
                     show: "/products/show/:id",
-                    meta: {
-                      canDelete: true,
-                    },
                   },
                 ]}
                

@@ -9,8 +9,8 @@ export const ProductCreate = () => {
     <Create saveButtonProps={saveButtonProps}>
       <Form {...formProps} layout="vertical">
         <Form.Item
-          label={"Title"}
-          name={["title"]}
+          label={"name"}
+          name={["name"]}
           rules={[
             {
               required: true,
@@ -19,6 +19,28 @@ export const ProductCreate = () => {
         >
           <Input />
         </Form.Item>
+          <Form.Item
+              label={"description"}
+              name={["description"]}
+              rules={[
+                  {
+                      required: true,
+                  },
+              ]}
+          >
+              <Input />
+          </Form.Item>
+          <Form.Item
+              label={"qtdAvailable"}
+              name={["qtdAvailable"]}
+              rules={[
+                  {
+                      required: true,
+                  },
+              ]}
+          >
+              <Input type='number'/>
+          </Form.Item>
       </Form>
     </Create>
   );

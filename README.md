@@ -42,7 +42,7 @@ services:
 
 ## Kubernets 
 
-### Step 1: Send this  images for personal DockerHub (opcional)
+### Step 1: Send this  images for personal DockerHub (optional)
  To build api image
 ```bash 
 cd api
@@ -101,7 +101,26 @@ kubectl config get-contexts
 |\*        | kubernetes-admin@kubernetes  | kubernetes  | kubernetes-admin   |products-api|
 
 
-### Step 4: Create Pod Spec
+### Step 3: create a Deployment
+
+### Step 4: create a service
+for expose the application for outside k8s, its necessary create a service
+```bash
+kubectl create service nodeport web-products --tcp=3000:3000 --node-port=30300
+```
+
+check the creation
+
+```bash
+kubectl get service
+```
+
+
+|NAME         |  TYPE       |CLUSTER-IP     | EXTERNAL-IP  |  PORT(S)      |    AGE |
+| -----| -----|-----|----|----|---|
+|web-products  | NodePort  |  10.97.135.212   <none>        |3000:30300 | TCP   |  3s | 
+
+### Step 5: Create Pod Spec
 has details about each application that we will upload.
 
 [products-pod.yaml](./products-pod.yaml)
@@ -114,7 +133,7 @@ scp roducts-pod.yaml remote_username@10.10.0.2:/remote/directory
 scp roducts-pod.yaml ramon@1192.168.64.2:/
 -->
 
-### Step 5: Apply spec file
+### Step 6: Apply spec file
 
 In sequence need apply this file, and check pods.
 
@@ -154,5 +173,5 @@ after a few seconds, you can run this same command, and will see:
 
 
 
-
+### Step 7: Create Volumes
 **TODO: add screnshot for the browser and datagrip**

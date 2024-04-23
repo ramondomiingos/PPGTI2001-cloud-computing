@@ -7,11 +7,26 @@ services:
       - "6379:6379"
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${api}
+      dockerfile: Dockerfile
+
+    container_name: frontend
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
+    environment:
+      VITE_API_URL: api
+      VITE_REACT_APP_API_URL: api
   api:
     build:
       context: ./api
       dockerfile: Dockerfile
-    container_name: API
+    container_name: api
     expose:
       - '8002'
     ports:
