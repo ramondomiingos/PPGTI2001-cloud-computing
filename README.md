@@ -18,7 +18,7 @@ Product registration API
 
 ### FRONT
 Application that consumes the API, displaying listings and forms.
-
+Using https://refine.dev/ as a base template.
 ### Docker-compose
 For run using docker-compose use 
 ```bash 
