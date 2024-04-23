@@ -3,6 +3,11 @@ This project was the evaluation of the Cloud Computing discipline, PPGTI2001, fr
 - The pod must have 4 containers and must be created using a
 Kubernetes manifest (yaml file);
 
+
+Students:
+- Ramon Domingos Duarte Oliveira [20231026233]
+- Gerfesson Santos da Nobrega [20231026206]
+
 ## About applications
 
 ### API
@@ -136,12 +141,14 @@ If it takes a long time to successfully create the containers, check the logs in
 ```bash
 kubectl logs web-products -c [redis-service, mongo, frontend, api]
 ```
- > erro example
+ > erro example: 
 > |NAME       |    READY  |  STATUS      |       RESTARTS      |  AGE| 
 > | ----- | ------- | ------- | ------ | ------| 
 > |web-products  |   3/4     | CrashLoopBackOff  |   12 (24s ago) |   10m | 
 
 after a few seconds, you can run this same command, and will see:
+
+
 
 
 **TODO: Step-by-step run pods with k8s**
