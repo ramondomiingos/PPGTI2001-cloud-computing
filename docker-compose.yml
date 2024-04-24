@@ -18,6 +18,8 @@ services:
       - '3000:3000'
     environment:
       API_URL: api
+      NEXT_PUBLIC_API_URL: api
+      NEXT_PUBLIC_API_URL_PORT: 8002
   api:
     build:
       context: ./api

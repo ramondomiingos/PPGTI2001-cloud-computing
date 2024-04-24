@@ -6,10 +6,12 @@ import routerProvider from "@refinedev/nextjs-router";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import React, { Suspense } from "react";
-
+import getConfig from 'next/config';
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ColorModeContextProvider } from "@contexts/color-mode";
-import { dataProvider } from "@providers/data-provider";
+ import { dataProvider } from "@providers/data-provider";
+
+
 import "@refinedev/antd/dist/reset.css";
 
 export const metadata: Metadata = {
@@ -29,6 +31,10 @@ export default function RootLayout({
   const theme = cookieStore.get("theme");
   const defaultMode = theme?.value === "dark" ? "dark" : "light";
 
+  const { publicRuntimeConfig, serverRuntimeConfig } = getConfig();
+  
+  console.log('public', process.env.NEXT_PUBLIC_API_URL)
+
   return (
     <html lang="pt-br">
       <body>
@@ -37,13 +43,12 @@ export default function RootLayout({
           <RefineKbarProvider>
             <AntdRegistry>
               <ColorModeContextProvider defaultMode={defaultMode}>
-                <DevtoolsProvider>
+             
                   <Refine
                     routerProvider={routerProvider}
                     dataProvider={dataProvider}
                     notificationProvider={useNotificationProvider}
                     resources={[
-
                       {
                         name: "products",
                         list: "/products",
@@ -65,7 +70,7 @@ export default function RootLayout({
                     {children}
                     <RefineKbar />
                   </Refine>
-                </DevtoolsProvider>
+              
               </ColorModeContextProvider>
             </AntdRegistry>
           </RefineKbarProvider>

@@ -18,14 +18,14 @@ FROM base AS builder
 COPY --from=deps /app/refine/node_modules ./node_modules
 
 COPY . .
-
+RUN npm install -g npm@10.5.2
 RUN npm run build
 
 FROM base AS runner
 
 ENV NODE_ENV production
 
- #COPY --from=builder /app/refine/public ./public
+#COPY --from=builder /app/refine/public ./public
 
 RUN mkdir .next
 RUN chown refine:nodejs .next
