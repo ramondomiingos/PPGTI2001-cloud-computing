@@ -55,6 +55,7 @@ cd frontend
 docker build -t <your_username>/front-products .
 docker push  <your_username>/front-products
 ```
+If you create custom images, go to the `k8s/*-deployment` files and change the image to yours.
 
 <!-- my script
  ```bash 
@@ -80,15 +81,15 @@ The images MONGO and REDIS is oficial images, are already available on dockerhub
 
 ```bash
 kubectl get ns
-kubectl create namespace products-api
+kubectl create namespace products-application
 kubectl get ns
 kubectl config get-contexts
-kubectl config set-context --current --namespace=products-api
+kubectl config set-context --current --namespace=products-application
 ```
 
 **[output]** 
 
-kubectl config set-context --current --namespace=products-api
+kubectl config set-context --current --namespace=products-application
 
 
 ```bash
@@ -105,6 +106,7 @@ kubectl config get-contexts
 
 ### Step 4: create a service
 for expose the application for outside k8s, its necessary create a service
+You can create with a command:
 ```bash
 kubectl create service nodeport web-products --tcp=3000:3000 --node-port=30300
 ```
@@ -115,10 +117,26 @@ check the creation
 kubectl get service
 ```
 
-
 |NAME         |  TYPE       |CLUSTER-IP     | EXTERNAL-IP  |  PORT(S)      |    AGE |
 | -----| -----|-----|----|----|---|
 |web-products  | NodePort  |  10.97.135.212   <none>        |3000:30300 | TCP   |  3s | 
+
+
+but, in k8s directory has 4 yaml files to [api,front,mongo,redis]-service.yaml 
+
+For apply all files use  `kubectl apply -f .`
+**[output]**
+```bash
+\# kubectl apply -f .
+deployment.apps/api created
+service/api created
+deployment.apps/front created
+service/front created
+deployment.apps/mongo created
+service/mongo created
+deployment.apps/redis-service created
+service/redis-service created
+```
 
 ### Step 5: Create Pod Spec
 has details about each application that we will upload.

@@ -12,18 +12,18 @@ spec:
       ports:
         - containerPort: 6379
           protocol: TCP
-      volumeMounts:
-        - name: data
-          mountPath: /data
+      # volumeMounts:
+      #   - name: data
+      #     mountPath: /data
       env:
         - name: ALLOW_EMPTY_PASSWORD
           value: "yes"
 
     - name: mongo
       image: mongo:4.4.6
-      volumeMounts:
-        - name: data
-          mountPath: /data
+      # volumeMounts:
+      #   - name: data
+      #     mountPath: /data
       env:
         - name: MONGO_INITDB_ROOT_USERNAME
           value: "root"
@@ -36,8 +36,7 @@ spec:
           protocol: TCP
       env:
         - name: VITE_URL_PRODUCTS
-          value: "http://api:8001"
-    
+          value: "api"
     - name: api
       image: ramondomiingos/api-products
       ports:
@@ -63,4 +62,8 @@ spec:
 
   volumes:
     - name: data
-      emptyDir: {}
+      configMap:
+        name: traefik-config
+    - name: some-persistent-storage-name
+      persistentVolumeClaim:
+        claimName: pvclaim2
