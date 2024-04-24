@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mongo
+  name: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - env:
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: example
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: root
+          image: mongo:4.4.6
+          name: mongo
+          ports:
+            - containerPort: 27017
+              hostPort: 27017
+              protocol: TCP
+      restartPolicy: Always
+    #  volumes:
+    #   - name: mysql-persistent-storage
+    #     persistentVolumeClaim:
+    #       claimName: mysql-pv-claim
+    #   - name: mysql-initdb
+    #     configMap:
+    #       name: mysql-initdb-config

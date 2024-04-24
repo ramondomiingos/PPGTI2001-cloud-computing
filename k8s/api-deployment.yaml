@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+   
+   
+  labels:
+    app: api
+  name: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      annotations:
+       
+       
+      labels:
+  
+        app: api
+    spec:
+      containers:
+        - env:
+            - name: MONGO_DB
+              value: product
+            - name: MONGO_PASSWORD
+              value: example
+            - name: MONGO_URL
+              value: mongo:27017
+            - name: MONGO_USERNAME
+              value: root
+            - name: PORT
+              value: "8001"
+            - name: REDIS_EXPIRE
+              value: "10"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_URL
+              value: redis-service
+          image:  ramondomiingos/api-products
+          name: api
+          ports:
+            - containerPort: 8001
+              hostPort: 8002
+              protocol: TCP
+            - containerPort: 8002
+              protocol: TCP
+      restartPolicy: Always

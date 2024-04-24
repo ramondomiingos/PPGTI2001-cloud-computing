@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+   
+   
+  labels:
+    app: front
+  name: front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      annotations:
+       
+       
+      labels:
+  
+        app: front
+    spec:
+      containers:
+        - env:
+            - name: API_URL
+              value: api
+            - name: NEXT_PUBLIC_API_URL
+              value: api
+            - name: NEXT_PUBLIC_API_URL_PORT
+              value: "8002"
+          image: ramondomiingos/front-products
+          name: front
+          ports:
+            - containerPort: 3000
+              hostPort: 3000
+              protocol: TCP
+      restartPolicy: Always
