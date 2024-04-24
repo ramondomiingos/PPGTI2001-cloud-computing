@@ -1,6 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+metadata:
+  annotations:
+   
+   
+metadata:   
   annotations:
    
    
@@ -15,10 +20,13 @@ spec:
   template:
     metadata:
       annotations:
+      annotations:
+       
+       
+      annotations: 
        
        
       labels:
-  
         app: api
     spec:
       containers:

@@ -5,13 +5,10 @@ metadata:
     app: api
   name: api
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: "8001"
       port: 8001
       targetPort: 8001
-    - name: 8002-tcp
-      port: 8002
-      targetPort: 8002
   selector:
     app: api
