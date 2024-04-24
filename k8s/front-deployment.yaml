@@ -26,9 +26,9 @@ spec:
             - name: API_URL
               value: api
             - name: NEXT_PUBLIC_API_URL
-              value: api
+              value: $(API_SERVICE_HOST)
             - name: NEXT_PUBLIC_API_URL_PORT
-              value: "8002"
+              value: $(API_SERVICE_PORT_8001)
           image: ramondomiingos/front-products
           name: front
           ports:
