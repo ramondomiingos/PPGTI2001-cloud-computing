@@ -208,3 +208,9 @@ Go to browser, visit `http://<ip-worker>:3000` and see the applcation.
 
 ### Step x: Create Volumes
 
+
+# Personal learning
+
+- In our scenario, we need to expose the api, since the requests made by the front were client-side, using an internal IP would not work.
+- All pods have many environment variables in the format <NAME>_SERIVCE_HOST to identify other services, and can be used in yaml as configuration envs. [Example](k8s/api-deployment.yaml) line 39.
+- To see all envs you can use `kubectl exec <pod-name> printenv`.
