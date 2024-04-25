@@ -48,11 +48,10 @@ spec:
             - name: REDIS_URL
               value: $(REDIS_SERVICE_SERVICE_HOST)
           image:  ramondomiingos/api-products
+          imagePullPolicy: Always
           name: api
           ports:
             - containerPort: 8001
-              hostPort: 8002
-              protocol: TCP
-            - containerPort: 8002
+              hostPort: 8001
               protocol: TCP
       restartPolicy: Always

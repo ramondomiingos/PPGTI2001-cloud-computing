@@ -5,7 +5,7 @@ metadata:
     app: api
   name: api
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - name: "8001"
       port: 8001

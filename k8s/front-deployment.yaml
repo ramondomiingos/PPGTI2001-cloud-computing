@@ -31,6 +31,7 @@ spec:
               value: $(API_SERVICE_PORT_8001)
           image: ramondomiingos/front-products
           name: front
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
               hostPort: 3000
