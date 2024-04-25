@@ -103,6 +103,14 @@ kubectl config get-contexts
 
 
 ### Step 3: create a Deployment
+In the deployment files, has details about  the **image docker**  and a  **imagePullPolicy**. In this example is Always,
+for Always deploy get a new image for dockerhub.
+The line command is
+
+```bash
+ kubectl create deployment redis --image=redis --port=5701
+```
+but, in k8s directory has 4 yaml files to [api,front,mongo,redis]-deployment.yaml 
 
 ### Step 4: create a service
 for expose the application for outside k8s, its necessary create a service
@@ -124,6 +132,33 @@ kubectl get service
 
 but, in k8s directory has 4 yaml files to [api,front,mongo,redis]-service.yaml 
 
+
+### Step 5: Send files for MASTER node.
+
+
+inthe folder `k8s`has 9 files
+deployment and service for [api, front, mongo and Redis]
+
+and 1 file for **ingress**;
+
+send this file for your master ( can use scp)
+```bash
+scp k8s/*  remote_username@10.10.0.2:/remote/directory
+```
+<!--
+scp k8s/* ramon@1192.168.64.2:/
+-->
+
+### Step 6: Apply spec file
+
+In sequence need apply this file, and check pods.
+
+
+```bash
+kubectl apply -f . 
+```
+** [output]**
+
 For apply all files use  `kubectl apply -f .`
 **[output]**
 ```bash
@@ -137,30 +172,6 @@ service/mongo created
 deployment.apps/redis-service created
 service/redis-service created
 ```
-
-### Step 5: Create Pod Spec
-has details about each application that we will upload.
-
-[products-pod.yaml](./products-pod.yaml)
-
-send this file for your master ( can use scp)
-```bash
-scp roducts-pod.yaml remote_username@10.10.0.2:/remote/directory
-```
-<!--
-scp roducts-pod.yaml ramon@1192.168.64.2:/
--->
-
-### Step 6: Apply spec file
-
-In sequence need apply this file, and check pods.
-
-
-```bash
-kubectl apply -f products-pod.yaml
-```
-** [output]**
-pod/web-products created
 
 ```bash
 kubectl get pods
@@ -189,7 +200,11 @@ after a few seconds, you can run this same command, and will see:
  | ----- | ------- | ------- | ------ | ------| 
 | web-products |   4/4  |    Running |  0 |          22s | 
 
+### Step 7: Check your application.
 
+Go to browser, visit `http://<ip-worker>:3000` and see the applcation.
 
-### Step 7: Create Volumes
-**TODO: add screnshot for the browser and datagrip**
+3000 is the port that expose in yaml files.
+
+### Step x: Create Volumes
+
