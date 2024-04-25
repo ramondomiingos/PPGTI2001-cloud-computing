@@ -157,12 +157,12 @@ In sequence need apply this file, and check pods.
 ```bash
 kubectl apply -f . 
 ```
-** [output]**
+**[output]**
 
 For apply all files use  `kubectl apply -f .`
 **[output]**
 ```bash
-\# kubectl apply -f .
+~kubectl apply -f .
 deployment.apps/api created
 service/api created
 deployment.apps/front created
@@ -206,11 +206,38 @@ Go to browser, visit `http://<ip-worker>:3000` and see the applcation.
 
 3000 is the port that expose in yaml files.
 
-### Step x: Create Volumes
+<!--### Step x: Create Volumes-->
 
 
 # Personal learning
 
 - In our scenario, we need to expose the api, since the requests made by the front were client-side, using an internal IP would not work.
-- All pods have many environment variables in the format <NAME>_SERIVCE_HOST to identify other services, and can be used in yaml as configuration envs. [Example](k8s/api-deployment.yaml) line 39.
+- All pods have many environment variables in the format `<NAME>_SERIVCE_HOST` to identify other services, and can be used in yaml as configuration envs. [Example](k8s/api-deployment.yaml) line 39.
 - To see all envs you can use `kubectl exec <pod-name> printenv`.
+
+
+<!-- 
+# Useful commands
+swapoff -a  
+kubeadm reset -y
+
+sudo kubeadm init --apiserver-advertise-address 192.168.64.2 --pod-network-cidr=192.168.0.0/16
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+ (Yes) 
+
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+
+kubectl create namespace products-application
+kubectl config set-context --current --namespace=products-application
+kubectl apply -f .
+kubectl get pods
+
+
+kubectl port-forward front-84b9bfd599-fgdkz 3000:3000
+
+kubectl port-forward  8001:8001
+kubectl exec front-84b9bfd599-fgdkz  printenv
+-->
