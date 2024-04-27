@@ -212,7 +212,7 @@ Go to browser, visit `http://<ip-worker>:3000` and see the applcation.
 # Personal learning
 
 - In our scenario, we need to expose the api, since the requests made by the front were client-side, using an internal IP would not work.
-- All pods have many environment variables in the format `<NAME>_SERIVCE_HOST` to identify other services, and can be used in yaml as configuration envs. [Example](k8s/api-deployment.yaml) line 39.
+- All pods have many environment variables in the format `<NAME>_SERVICE_HOST` to identify other services, and can be used in yaml as configuration envs. [Example](k8s/api-deployment.yaml) line 39.
 - To see all envs you can use `kubectl exec <pod-name> printenv`.
 - Other format for URL is `<service-name>.<namespace|default>.svc.cluster.local:<service-port>`;
 
@@ -240,5 +240,5 @@ kubectl get pods
 kubectl port-forward front-84b9bfd599-fgdkz 3000:3000
 
 kubectl port-forward  8001:8001
-kubectl exec front-84b9bfd599-fgdkz  printenv
+kubectl exec -it front-95859b69d-xlrdf   -- env
 -->
